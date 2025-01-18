@@ -1,20 +1,9 @@
-
 from fastapi import FastAPI
+from app.api.routers import search, videos, playlists, channels
 
-# Create an instance of the FastAPI class
-app = FastAPI()
+app = FastAPI(title="YouTube Data API App")
 
-# Define a root endpoint (GET request)
-@app.get("/")
-def read_root():
-    return {"message": "Hello, World!"}
-
-# Define a dynamic endpoint
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "query": q}
-
-# Define a POST endpoint
-@app.post("/create/")
-def create_item(name: str):
-    return {"name": name, "status": "Item created successfully"}
+app.include_router(search.router, prefix="/search", tags=["Search"])
+app.include_router(videos.router, prefix="/videos", tags=["Videos"])
+app.include_router(playlists.router, prefix="/playlists", tags=["Playlists"])
+app.include_router(channels.router, prefix="/channels", tags=["Channels"])
