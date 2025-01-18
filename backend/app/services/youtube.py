@@ -9,7 +9,8 @@ class YouTubeService:
         request = self.youtube.search().list(
             part="snippet",
             q=query,
-            maxResults=max_results
+            maxResults=max_results,
+            type="video"
         )
         response = request.execute()
         return response
@@ -21,3 +22,24 @@ class YouTubeService:
         )
         response = request.execute()
         return response
+
+    # ------------------------
+    # New methods for playlists and channels
+    # ------------------------
+    def search_playlists(self, query: str, max_results: int = 5):
+        request = self.youtube.search().list(
+            part="snippet",
+            q=query,
+            maxResults=max_results,
+            type="playlist"
+        )
+        return request.execute()
+
+    def search_channels(self, query: str, max_results: int = 5):
+        request = self.youtube.search().list(
+            part="snippet",
+            q=query,
+            maxResults=max_results,
+            type="channel"
+        )
+        return request.execute()
