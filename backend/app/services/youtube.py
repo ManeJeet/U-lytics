@@ -23,9 +23,6 @@ class YouTubeService:
         response = request.execute()
         return response
 
-    # ------------------------
-    # New methods for playlists and channels
-    # ------------------------
     def search_playlists(self, query: str, max_results: int = 5):
         request = self.youtube.search().list(
             part="snippet",
